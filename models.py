@@ -1,12 +1,10 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from db import db
 
 class Room(db.Model):
     __tablename__ = 'rooms'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
+    room_name = db.Column(db.String(120), unique=True, nullable=False)
     plant_count = db.Column(db.Integer, nullable=False)
     plants = db.relationship('Plant', backref='location')
 
@@ -22,8 +20,8 @@ class Plant(db.Model):
     __tablename__ = 'plants'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(256), index=True, nullable=False)
-    date_watered = db.Column(db.Date, nullable=False)
+    plant_name = db.Column(db.String(120), index=True, nullable=False)
+    date_watered = db.Column(db.String(80), nullable=False)
     room_id = db.Column(db.Integer, db.ForeignKey('rooms.id'))
 
     def __repr__(self):

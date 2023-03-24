@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from flask_graphql import GraphQLView
 import os
 
-from models import db
+from db import db
 from schema import schema
 
 
@@ -27,7 +27,6 @@ db.init_app(app)
 # Modules
 migrate = Migrate(app, db)
 
-
 # Routes
 app.add_url_rule(
     '/graphql-api',
@@ -40,8 +39,7 @@ app.add_url_rule(
 
 @app.route('/')
 def index():
-
-    return 'Welcome to Don\'t let them perish API'
+  return 'Welcome to Don\'t let them perish API'
 if __name__ == '__main__':
      app.run()
 
