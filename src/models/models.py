@@ -8,8 +8,8 @@ class Room(db.Model):
     plant_count = db.Column(db.Integer, nullable=False)
     plants = db.relationship('Plant', backref='location')
 
-    def __init__(self, name, plant_count):
-      self.name = name
+    def __init__(self, room_name, plant_count):
+      self.room_name = room_name
       self.plant_count = plant_count
 
     def __repr__(self):
