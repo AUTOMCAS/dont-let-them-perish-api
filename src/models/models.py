@@ -26,4 +26,3 @@ class Plant(db.Model):
 
     def __repr__(self):
         return '' % self.name % self.date_watered % self.room_id
-  

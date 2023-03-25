@@ -1,14 +1,13 @@
 # Imports
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 from flask_graphql import GraphQLView
 import os
 
 from db import db
-from schema import schema
 
+from src.graphql.schema import schema
 
 # initializing our app
 app = Flask(__name__)
