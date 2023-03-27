@@ -9,12 +9,12 @@ from src.graphql.types.room import RoomType
 class AddRoom(graphene.Mutation):
     class Arguments:
         room_name = graphene.String(required=True)
-        plant_count = graphene.Int(required=True) 
 
     room = graphene.Field(lambda: RoomType)
 
-    def mutate(self, info, room_name, plant_count):
-        room = Room(room_name=room_name, plant_count=plant_count)
+    def mutate(self, info, room_name):
+        initial_plant_count = 0
+        room = Room(room_name=room_name, plant_count=initial_plant_count)
         db.session.add(room)
         db.session.commit()
         return AddRoom(room=room)
