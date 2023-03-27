@@ -24,3 +24,19 @@ class AddPlant(graphene.Mutation):
         return AddPlant(plant=plant)
 
 
+class DeletePlantByName(graphene.Mutation):
+    class Arguments:
+        plant_name = graphene.String(required=True)
+
+    success = graphene.Boolean()
+    
+
+    def mutate(self, info, plant_name):
+        plant = Plant.query.filter_by(plant_name=plant_name).first()
+
+        if not plant:
+            raise Exception(f"Plant {plant_name} not found")
+        db.session.delete(plant)
+        db.session.commit()
+        return DeletePlantByName(success=True)
+

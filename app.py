@@ -9,7 +9,7 @@ from db import db
 
 from src.graphql.schema import schema
 
-# initializing our app
+# initializing app
 app = Flask(__name__)
 app.debug = True
 load_dotenv()
