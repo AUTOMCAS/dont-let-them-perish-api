@@ -1,15 +1,15 @@
 import graphene
+from graphql_relay.node.node import from_global_id
 
 from db import db
 
 from src.models.models import Room, Plant
-
 from src.graphql.types.room import RoomType
 
 class AddRoom(graphene.Mutation):
     class Arguments:
         room_name = graphene.String(required=True)
-        plant_count = graphene.String(required=True) 
+        plant_count = graphene.Int(required=True) 
 
     room = graphene.Field(lambda: RoomType)
 
@@ -38,3 +38,32 @@ class DeleteRoomByName(graphene.Mutation):
         db.session.delete(room)
         db.session.commit()
         return DeleteRoomByName(success=True)
+    
+class UpdateRoomInput(graphene.InputObjectType):
+    id = graphene.ID(required=True)
+    room_name = graphene.String()
+    plant_count = graphene.Int()
+
+class UpdateRoom(graphene.Mutation):
+    class Arguments:
+        room_data = UpdateRoomInput(required=True)
+
+    success = graphene.Boolean()
+
+    def mutate(self, info, room_data):
+        room_id = from_global_id(room_data.id)[1]
+        room = Room.query.get(room_id)
+
+        if not room:
+            raise Exception(f"Room with ID: {room_id} not found")
+
+        if room_data.room_name:
+            room.room_name = room_data.room_name
+
+        if room_data.plant_count:
+            room.plant_count = room_data.plant_count
+
+        db.session.commit()
+
+        return UpdateRoom(success=True)
+        
