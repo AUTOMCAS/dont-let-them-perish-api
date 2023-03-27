@@ -5,6 +5,7 @@ from db import db
 
 from src.models.models import Room, Plant
 from src.graphql.types.plant import PlantType
+from src.graphql.mutations.room import UpdateRoomPlantCount
 
 class AddPlant(graphene.Mutation):
     class Arguments:
@@ -17,10 +18,15 @@ class AddPlant(graphene.Mutation):
     def mutate(self, info, plant_name, date_watered, room_name):
         room = Room.query.filter_by(room_name=room_name).first()
         plant = Plant(plant_name=plant_name, date_watered=date_watered)
+        
         if room is not None:
             plant.location = room
+        
         db.session.add(plant)
+        UpdateRoomPlantCount().update_count(room.id)
         db.session.commit()
+
+
         return AddPlant(plant=plant)
 
 
@@ -36,7 +42,9 @@ class DeletePlantByName(graphene.Mutation):
         if not plant:
             raise Exception(f"Plant {plant_name} not found")
         db.session.delete(plant)
+        UpdateRoomPlantCount().update_count(plant.room_id)
         db.session.commit()
+        
         return DeletePlantByName(success=True)
 
 class UpdatePlantInput(graphene.InputObjectType):
