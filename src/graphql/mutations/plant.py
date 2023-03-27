@@ -5,7 +5,7 @@ from db import db
 
 from src.models.models import Room, Plant
 from src.graphql.types.plant import PlantType
-from src.graphql.mutations.room import UpdateRoomPlantCount
+from src.service.update_room_plant_count import UpdateRoomPlantCount
 
 class AddPlant(graphene.Mutation):
     class Arguments:

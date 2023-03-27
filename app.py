@@ -38,7 +38,6 @@ app.add_url_rule(
     )
 )
 
-
 app.register_blueprint(rooms_bp)
 app.register_blueprint(plants_bp)
 
