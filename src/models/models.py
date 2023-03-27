@@ -1,7 +1,10 @@
 from db import db
+from sqlalchemy_serializer import SerializerMixin
 
-class Room(db.Model):
+class Room(db.Model, SerializerMixin):
     __tablename__ = 'rooms'
+
+    serialize_only = ('id', 'room_name', 'plant_count')
 
     id = db.Column(db.Integer, primary_key=True)
     room_name = db.Column(db.String(120), unique=True, nullable=False)
@@ -13,11 +16,13 @@ class Room(db.Model):
       self.plant_count = plant_count
 
     def __repr__(self):
-        return '' % self.id
+        return f'<Room {self.id}>'
     
 
-class Plant(db.Model):
+class Plant(db.Model, SerializerMixin):
     __tablename__ = 'plants'
+
+    serialize_only = ('id', 'plant_name', 'date_watered', 'room_id', 'location')
 
     id = db.Column(db.Integer, primary_key=True)
     plant_name = db.Column(db.String(120), index=True, unique=True, nullable=False)
