@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from db import db
 
 from src.models.models import Room
 
@@ -22,3 +23,11 @@ def get_room_by_name(room_name):
     if not room:
         return jsonify({'error': 'Room not found'}), 404
     return jsonify({'room': room.to_dict()})
+
+@bp.route('/', methods=['POST'])
+def create_room():
+    data = request.get_json()
+    room = Room(room_name=data['room_name'])
+    db.session.add(room)
+    db.session.commit()
+    return jsonify({'message': 'Room created successfully'})

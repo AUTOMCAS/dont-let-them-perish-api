@@ -8,12 +8,11 @@ class Room(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     room_name = db.Column(db.String(120), unique=True, nullable=False)
-    plant_count = db.Column(db.Integer, nullable=False)
+    plant_count = db.Column(db.Integer, nullable=True)
     plants = db.relationship('Plant', backref='location')
 
-    def __init__(self, room_name, plant_count):
+    def __init__(self, room_name):
       self.room_name = room_name
-      self.plant_count = plant_count
 
     def __repr__(self):
         return f'<Room {self.id}>'

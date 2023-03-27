@@ -42,6 +42,7 @@ app.register_blueprint(rooms_bp)
 
 @app.route('/')
 def index():
+  db.create_all()
   return 'Welcome to Don\'t let them perish API'
 
 if __name__ == '__main__':
