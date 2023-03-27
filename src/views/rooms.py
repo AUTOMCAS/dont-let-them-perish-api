@@ -31,3 +31,13 @@ def create_room():
     db.session.add(room)
     db.session.commit()
     return jsonify({'message': 'Room created successfully'})
+
+@bp.route('/<int:id>', methods=['PUT'])
+def update_room(id):
+    room = Room.query.get(id)
+    if not room:
+        return jsonify({'error': 'Room not found'}), 404
+    data = request.get_json()
+    room.room_name = data.get('room_name', room.room_name)
+    db.session.commit()
+    return jsonify({'message': 'Room updated successfully'})
