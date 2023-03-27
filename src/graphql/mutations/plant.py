@@ -26,9 +26,7 @@ class AddPlant(graphene.Mutation):
         UpdateRoomPlantCount().update_count(room.id)
         db.session.commit()
 
-
         return AddPlant(plant=plant)
-
 
 class DeletePlantByName(graphene.Mutation):
     class Arguments:
