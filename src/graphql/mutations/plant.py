@@ -30,7 +30,6 @@ class DeletePlantByName(graphene.Mutation):
 
     success = graphene.Boolean()
     
-
     def mutate(self, info, plant_name):
         plant = Plant.query.filter_by(plant_name=plant_name).first()
 
