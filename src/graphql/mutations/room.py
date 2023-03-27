@@ -67,7 +67,6 @@ class UpdateRoom(graphene.Mutation):
 
         return UpdateRoom(success=True)
 
-
 class UpdateRoomPlantCount:
     def update_count(self, room_id):
         updated_plant_count = Plant.query.filter_by(room_id=room_id).count()
