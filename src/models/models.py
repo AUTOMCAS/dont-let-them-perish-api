@@ -25,7 +25,7 @@ class Plant(db.Model, SerializerMixin):
     serialize_only = ('id', 'plant_name', 'date_watered', 'room_id', 'location')
 
     id = db.Column(db.Integer, primary_key=True)
-    plant_name = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    plant_name = db.Column(db.String(120), index=True, nullable=False)
     date_watered = db.Column(db.String(80), nullable=False)
     room_id = db.Column(db.Integer, db.ForeignKey('rooms.id'))
 

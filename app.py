@@ -9,6 +9,7 @@ from db import db
 
 from src.graphql.schema import schema
 from src.views.rooms import bp as rooms_bp
+from src.views.plants import bp as plants_bp
 
 # initializing app
 app = Flask(__name__)
@@ -39,10 +40,10 @@ app.add_url_rule(
 
 
 app.register_blueprint(rooms_bp)
+app.register_blueprint(plants_bp)
 
 @app.route('/')
 def index():
-  db.create_all()
   return 'Welcome to Don\'t let them perish API'
 
 if __name__ == '__main__':
