@@ -8,7 +8,7 @@ import os
 from db import db
 
 from src.graphql.schema import schema
-from src.views.views import bp as rooms_bp
+from src.views.rooms import bp as rooms_bp
 
 # initializing app
 app = Flask(__name__)
