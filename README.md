@@ -1,6 +1,10 @@
 # Don't let them perish
 
-Simple API using GraphQL and postgreSQL to manage plants in each related room.
+Simple REST and GraphQL API using postgreSQL to manage plants in each related room.
+
+[GraphQL queries](#graphql)  
+[REST endpoints](#rest)  
+[Setup](#setip)
 
 **Room**
 Room name
@@ -19,7 +23,7 @@ Associated room
 - SQLAlchemy
 - PostgreSQL
 
-## GraphQL query examples
+## <a name="graphql">GraphQL query examples</a>
 
 ### Add a Room:
 
@@ -162,3 +166,72 @@ mutation {
   }
 }
 ```
+
+## <a name="rest">REST endpoints</a>
+
+### Rooms
+
+Get all Rooms: `GET /rooms`
+
+Get Room by ID: `GET /rooms/<id>`
+
+Get Room by name: `GET /rooms/<room name>`
+
+Create Room: `POST /rooms` with json:
+
+```
+{
+    "room_name": "Kitchen"
+}
+```
+
+Update Room: `PUT /rooms` with json:
+
+```
+{
+    "room_name": "Kitchen"
+}
+```
+
+Delete Room by ID: `DELETE /rooms/<id>`
+
+### Plants
+
+Get all Plants: `GET /plants`
+
+Get Plant by ID: `GET /plants/<id>`
+
+get Plant by name: `GET /plants/<plant name>`
+
+Create Plant: `POST /plants` with json:
+
+```
+{
+    "plant_name": "Fern",
+    "date_watered": "27/03/2023",
+    "room_name": "Kitchen"
+}
+```
+
+Update Plant: `PUT /plants` with json:
+
+```
+{
+    "plant_name": "Fern",
+    "date_watered": "27/03/2023",
+    "room_name": "Kitchen"
+}
+```
+
+Delete Plant by ID: `DELETE /plants/<id>`
+
+## <a name="setup">Setup</a> Setup
+
+Create PostgreSQL database: `createdb dont_let_them_perish`
+
+Create `.env` file and add `DATABASE_URL='postgresql://user:password@localhost/dont_let_them_perish'`, replacing user, password and database name as needed.
+See `.env_example` for example.
+
+From main directory run `python -m pip install -r requirements.txt` to install required packages.
+
+Run the app in terminal: `python app.py`
