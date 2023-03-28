@@ -225,7 +225,7 @@ Update Plant: `PUT /plants` with json:
 
 Delete Plant by ID: `DELETE /plants/<id>`
 
-## <a name="setup">Setup</a> Setup
+## <a name="setup">Setup</a>
 
 Create PostgreSQL database: `createdb dont_let_them_perish`
 
